@@ -25,7 +25,7 @@ var datatest = [
         "tvoc":"5575"
     },
     {
-        "line":"central",
+        "line":"Bakerloo",
         "number":"25657578689",
         "station":"Kensington",
         "temp":"254",
@@ -54,7 +54,7 @@ function buildtable() {
     var identify = document.getElementById('tag').textContent;
 
     // Save Data
-    var datacurrent = data;
+    var datacurrent = datatest;
 
     // Create table
     var table = "";
