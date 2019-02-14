@@ -3,7 +3,6 @@
 
 <head>
 
-  <!-- Generic prequisities -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="IoT Project">
@@ -11,17 +10,17 @@
   <meta http-equiv="refresh" content="1">
   <link rel="shortcut icon" href="../im/favicon.ico" />
 
-  <title>Bakerloo</title>
+  <title>Victoria</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Styles for this template -->
+  <!-- Custom styles for this template -->
   <link href="../css/simple-sidebar.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
 
-  <!-- Unique tag for importing data -->
-  <var id="tag" hidden>Bakerloo</var>
+    <!-- Unique tag for importing data -->
+    <var id="tag" hidden>victoria</var>
 
 </head>
 
@@ -29,7 +28,7 @@
 
   <div class="d-flex" id="wrapper">
 
-    <!-- Menu options -->
+    <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading"><b>MENU</b></div>
       <div class="list-group list-group-flush">
@@ -68,24 +67,23 @@
     </div>
 
   </div>
+  <!-- /#wrapper -->
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
 
 </body>
 
 </html>
-
-<!-- Bootstrap core JavaScript -->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Menu Toggle Script -->
-<script>
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
-</script>
 
 <!-- Importing live data -->
 <script src="../js/importdata.js"></script>
