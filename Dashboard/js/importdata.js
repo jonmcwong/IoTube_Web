@@ -1,49 +1,49 @@
 // TEST data 
 var datatest = [
     {
-        "line":"circle",
+        "line":"Bakerloo",
         "number":"245",
-        "station":"South ",
-        "temp":"24",
-        "co2":"56",
-        "tvoc":"575"
+        "station":"Stonebridge",
+        "temp":"19",
+        "co2":"875",
+        "tvoc":"1"
     },
     {
-        "line":"central",
+        "line":"Bakerloo",
         "number":"258677295",
-        "station":"Soton",
-        "temp":"254",
-        "co2":"5996",
-        "tvoc":"55e75"
+        "station":"Wembley Central",
+        "temp":"14",
+        "co2":"586",
+        "tvoc":"1"
     },
     {
-        "line":"circle",
+        "line":"Bakerloo",
         "number":"245",
-        "station":"South sington",
-        "temp":"254",
-        "co2":"576",
-        "tvoc":"5575"
+        "station":"North Wembley",
+        "temp":"31",
+        "co2":"165",
+        "tvoc":"1"
     },
     {
         "line":"Bakerloo",
         "number":"25657578689",
-        "station":"Kensington",
-        "temp":"254",
-        "co2":"5",
-        "tvoc":"575465"
+        "station":"South Kenton",
+        "temp":"27",
+        "co2":"522",
+        "tvoc":"0"
     },
     {
         "line":"Bakerloo",
         "number":"25657578689",
-        "station":"Kensington",
-        "temp":"254",
-        "co2":"5",
-        "tvoc":"575465"
+        "station":"Kent Underground Station",
+        "temp":"28",
+        "co2":"560",
+        "tvoc":"1"
     }
 ]
 
 //INSERT DATA HERE
-var data = []
+var data = [{"line":"Bakerloo","number":"243","station":"Paddington"},{"line":"Bakerloo","number":"203","station":"North Wembley"},{"line":"Bakerloo","number":"223","station":"Waterloo"},{"line":"Bakerloo","number":"241","station":"Marylebone"},{"line":"Bakerloo","number":"240","station":"Lambeth North"},{"line":"Bakerloo","number":"224","station":"Wembley Central"},{"line":"Bakerloo","number":"202","station":"Warwick Avenue"},{"line":"Bakerloo","number":"221","station":"Kensal Green"},{"line":"Bakerloo","number":"204","station":"Harlesden"},{"line":"Bakerloo","number":"222","station":"Kilburn Park"}]
 //var datacurrent = JSON.parse(data); -- use if stringyfied
 
 
