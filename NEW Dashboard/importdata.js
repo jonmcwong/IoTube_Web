@@ -35,7 +35,7 @@ var datatest = [
     {
         "line":"Bakerloo",
         "number":"25657578689",
-        "station":"Kensington",
+        "station":"Ton",
         "temp":"254",
         "co2":"5",
         "tvoc":"575465"
@@ -43,7 +43,7 @@ var datatest = [
 ]
 
 //INSERT DATA HERE
-var data = []
+var data = [{"line":"Bakerloo","number":"243","station":"Paddington"},{"line":"Bakerloo","number":"203","station":"North Wembley"},{"line":"Bakerloo","number":"223","station":"Waterloo"},{"line":"Bakerloo","number":"241","station":"Marylebone"},{"line":"Bakerloo","number":"240","station":"Lambeth North"},{"line":"Bakerloo","number":"224","station":"Wembley Central"},{"line":"Bakerloo","number":"202","station":"Warwick Avenue"},{"line":"Bakerloo","number":"221","station":"Kensal Green"},{"line":"Bakerloo","number":"204","station":"Harlesden"},{"line":"Bakerloo","number":"222","station":"Kilburn Park"}]
 //var datacurrent = JSON.parse(data); -- use if stringyfied
 
 
@@ -58,17 +58,18 @@ function buildtable() {
 
     // Create table
     var table = "";
-	table += "<table>";
-	table += "<tr><th><center>Station</center></th><th><center>Temperature</center></th><th><center>C02</center></th><th><center>VTOC</center></th></tr>"
+	table += '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">';
+    table += '<thead><tr><th><center>STATION</center></th><th><center>TEMPERATURE</center></th><th><center>C02</center></th><th><center>VTOC</center></th><th><center>CONDITION</center></th></tr></thead>'
 	for (i = datacurrent.length - 1; i >= 0; i--) {
         console.log(datacurrent[i].line)
         if(datacurrent[i].line === identify) {
-            table += "<tr>";
+            table += "<tbody><tr>";
             table += "<td>" + datacurrent[i].station + "</td>";
-            table += "<td>" + datacurrent[i].temp + "</td>"
+            table += '<td class="check">' + datacurrent[i].temp + "</td>"
             table += "<td>" + datacurrent[i].co2 + "</td>";
             table += "<td>" + datacurrent[i].tvoc + "</td>";
-            table += "</tr>";
+            table += '<td class="heat">' + "</td>"
+            table += "</tr></tbody>";
         }
 	}
     table += "</table>";
@@ -78,3 +79,11 @@ function buildtable() {
     output.innerHTML = table;
 }
 buildtable();
+
+$(document).ready(function(){
+    $('#dataTable td.check').each(function(){
+        if ($(this).text() == '254') {
+            $('#dataTable td.heat').css('background-color','#f00');
+        }
+    });
+});
