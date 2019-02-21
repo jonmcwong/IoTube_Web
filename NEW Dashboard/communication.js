@@ -31,14 +31,14 @@ function onMessageArrived(msg) {
 	var deviceData = JSON.parse(msg.payloadString);
 	//console.log("received " + msg.payloadString);
 	console.log("received data from  device " + deviceData.number);
-	var dataIdx = datatest.findIndex((x) => x.station === deviceData.station);
+	var dataIdx = data.findIndex((x) => x.station === deviceData.station);
 	//if doesn't exist in data
 	if (dataIdx == -1) {
-		datatest.push(deviceData);
+		data.push(deviceData);
 	} else {
-		datatest[dataIdx] = deviceData;
+		data[dataIdx] = deviceData;
 	}
-	storeJSON(datatest);
+	storeJSON(data);
 	//set global var to deviceData
 	//save data using cloud
 }

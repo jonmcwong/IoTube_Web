@@ -1,51 +1,6 @@
 // TEST data 
-var datatest  = [ /*
-    {
-        "line":"Circle",
-        "number":"245",
-        "station":"South ",
-        "temperature":"24",
-        "CO2":"56",
-        "VolatileComponents":"575"
-    },
-    {
-        "line":"Central",
-        "number":"258677295",
-        "station":"Soton",
-        "temperature":"254",
-        "CO2":"5996",
-        "VolatileComponents":"55e75"
-    },
-    {
-        "line":"Circle",
-        "number":"245",
-        "station":"South sington",
-        "temperature":"254",
-        "CO2":"576",
-        "VolatileComponents":"5575"
-    },
-    {
-        "line":"Bakerloo",
-        "number":"25657578689",
-        "station":"Kensington",
-        "temperature":"8",
-        "CO2":"300",
-        "VolatileComponents":"0.2"
-    },
-    {
-        "line":"Bakerloo",
-        "number":"25657578689",
-        "station":"Ton",
-        "temperature":"80",
-        "CO2":"200",
-        "VolatileComponents":"5.6"
-    } */
-]
 
-//INSERT DATA HERE
-var data = [{"line":"Bakerloo","number":"243","station":"Paddington"},{"line":"Bakerloo","number":"203","station":"North Wembley"},{"line":"Bakerloo","number":"223","station":"Waterloo"},{"line":"Bakerloo","number":"241","station":"Marylebone"},{"line":"Bakerloo","number":"240","station":"Lambeth North"},{"line":"Bakerloo","number":"224","station":"Wembley Central"},{"line":"Bakerloo","number":"202","station":"Warwick Avenue"},{"line":"Bakerloo","number":"221","station":"Kensal Green"},{"line":"Bakerloo","number":"204","station":"Harlesden"},{"line":"Bakerloo","number":"222","station":"Kilburn Park"}]
-//var datacurrent = JSON.parse(data); -- use if stringyfied
-
+var data  = []
 
 //Identify which line we are filtering
 var identify = document.getElementById('tag').textContent;
@@ -73,7 +28,7 @@ setupWebpage(); //mqtt connection and storage setup are both done in parrellel
 //setup call for webpage
 async function setupWebpage(){
   //await setupStorage(); //add back in when storage functions defined
-  datatest = await retrieveJSON(); // must always be in sync
+  data = await retrieveJSON(); // must always be in sync
   var table = buildtable();
   //Output table
   document.getElementById('output').innerHTML = table;
@@ -99,9 +54,9 @@ async function refresh() {
 // Build HTML table
 function buildtable() {
     // Save Data
-    var datacurrent = datatest;
+    var datacurrent = data;
 
-    // Create table
+    // Create table and colour elements
     var table = "";
     var color1 = "";
     var color2 = "";
@@ -160,8 +115,9 @@ function buildtable() {
     table += "</table>";
     //Output table
     return table;
-    //var output = document.getElementById('output')
+    //var output = document.getElementById('output') // Output completed table
     //output.innerHTML = table;
 };
 
-//buildtable();
+
+//buildtable(); // Test table building using local data
