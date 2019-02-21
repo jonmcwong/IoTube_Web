@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            var request1 = new XMLHttpRequest(); //requests api for token
+            var tokenurl = request1.open("POST", "https://api.keyvalue.xyz/new/KEY", true);
+            request1.send(); //output is a url with new replaced with token val
+            
+            var request2 = new XMLHttpRequest() //requests api to send value
+            var setval = request2.open("POST", "{tokenurl}/myval",true);
+            request2.send()
+
+            var request3 = new XMLHttpRequest();
+            var val = request3.open("GET", "{tokenurl} ", true); //gets the value
+            //output is the value
+
+            document.write(val);
+            document.write("   written val ");
+            request3.onload = function(){//if 200
+                string_output = JSON.stringify(this.response);
+            }
+            request3.send();
+        </script>
+    </body>
+</html> 
