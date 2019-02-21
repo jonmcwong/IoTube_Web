@@ -62,7 +62,7 @@ function buildtable() {
     var color2 = "";
     var color3 = "";
 	table += '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">';
-    table += '<thead><tr><th><center>STATION</center></th><th><center>temperature</center></th><th><center>C02 (ppm)</center></th><th><center>VTOC (ppm)</center></th></tr></thead>'
+    table += '<thead><tr><th><center>STATION</center></th><th><center>Temperature (°C)</center></th><th><center>C02 (ppm)</center></th><th><center>VTOC (ppm)</center></th></tr></thead>'
 	for (i = datacurrent.length - 1; i >= 0; i--) {
         if(datacurrent[i].line === identify) {
 
