@@ -5,7 +5,7 @@ IoTube is the London Underground Air Monitoring System developed by Rishabh Manj
 In the following repository you will find the following code:
 
 1. IoTUBE Dashboard and Marketing website
-2. Raspberry Pi Zero scripts  - https://github.com/jonmcwong/IoTube_Pi/commit/342a252bbccd632ce67abb02ccc44b994f21d5a6 (Separate Repo)
+2. Raspberry Pi Zero scripts  - https://github.com/jonmcwong/IoTube_Pi/commit/4abfddc502d0909011c6cbf413dfec84028364fa (Separate Repo)
 
 Download this repository to run the Dashboard Locally and follow the link above to view the Raspberry Pi Scripts.
 
