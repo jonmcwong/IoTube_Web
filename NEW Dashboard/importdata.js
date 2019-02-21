@@ -4,41 +4,41 @@ var datatest  = [
         "line":"Circle",
         "number":"245",
         "station":"South ",
-        "temp":"24",
-        "co2":"56",
-        "tvoc":"575"
+        "temperature":"24",
+        "CO2":"56",
+        "VolatileComponents":"575"
     },
     {
         "line":"Central",
         "number":"258677295",
         "station":"Soton",
-        "temp":"254",
-        "co2":"5996",
-        "tvoc":"55e75"
+        "temperature":"254",
+        "CO2":"5996",
+        "VolatileComponents":"55e75"
     },
     {
         "line":"Circle",
         "number":"245",
         "station":"South sington",
-        "temp":"254",
-        "co2":"576",
-        "tvoc":"5575"
+        "temperature":"254",
+        "CO2":"576",
+        "VolatileComponents":"5575"
     },
     {
         "line":"Bakerloo",
         "number":"25657578689",
         "station":"Kensington",
-        "temp":"8",
-        "co2":"300",
-        "tvoc":"0.2"
+        "temperature":"8",
+        "CO2":"300",
+        "VolatileComponents":"0.2"
     },
     {
         "line":"Bakerloo",
         "number":"25657578689",
         "station":"Ton",
-        "temp":"80",
-        "co2":"200",
-        "tvoc":"5.6"
+        "temperature":"80",
+        "CO2":"200",
+        "VolatileComponents":"5.6"
     }
 ]
 
@@ -107,60 +107,61 @@ function buildtable() {
     var color2 = "";
     var color3 = "";
 	table += '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">';
-    table += '<thead><tr><th><center>STATION</center></th><th><center>TEMP</center></th><th><center>C02 (ppm)</center></th><th><center>VTOC (ppm)</center></th></tr></thead>'
+    table += '<thead><tr><th><center>STATION</center></th><th><center>temperature</center></th><th><center>C02 (ppm)</center></th><th><center>VTOC (ppm)</center></th></tr></thead>'
 	for (i = datacurrent.length - 1; i >= 0; i--) {
         if(datacurrent[i].line === identify) {
 
         // Set colours based on temperature range
-            if((Number(datacurrent[i].temp)) < 11) {
+            if((Number(datacurrent[i].temperature)) < 11) {
                 color1 = "#4FC3F7";
-            } else if ((Number(datacurrent[i].temp)) > 10 && Number(datacurrent[i].temp) < 20) {
+            } else if ((Number(datacurrent[i].temperature)) > 10 && Number(datacurrent[i].temperature) < 20) {
                 color1 = "#4DD0E1";
-            } else if ((Number(datacurrent[i].temp)) > 19 && Number(datacurrent[i].temp) < 26) {
+            } else if ((Number(datacurrent[i].temperature)) > 19 && Number(datacurrent[i].temperature) < 26) {
                 color1 = "#81C784";
-            } else if ((Number(datacurrent[i].temp)) > 25 && Number(datacurrent[i].temp) < 30) {
+            } else if ((Number(datacurrent[i].temperature)) > 25 && Number(datacurrent[i].temperature) < 30) {
                 color1 = "#FFB74D";
-            } else if ((Number(datacurrent[i].temp)) > 29) {
+            } else if ((Number(datacurrent[i].temperature)) > 29) {
                 color1 = "#FF8A65";
             }   
         
         // Set colour based on c02 range
-            if((Number(datacurrent[i].temp)) < 351) {
+            if((Number(datacurrent[i].temperature)) < 351) {
                 color2 = "#81C784";
-            } else if ((Number(datacurrent[i].temp)) > 350 && Number(datacurrent[i].temp) < 601) {
+            } else if ((Number(datacurrent[i].temperature)) > 350 && Number(datacurrent[i].temperature) < 601) {
                 color2 = "#AED581";
-            } else if ((Number(datacurrent[i].temp)) > 600 && Number(datacurrent[i].temp) < 1001) {
+            } else if ((Number(datacurrent[i].temperature)) > 600 && Number(datacurrent[i].temperature) < 1001) {
                 color2 = "#DCE775";
-            } else if ((Number(datacurrent[i].temp)) > 1000 && Number(datacurrent[i].temp) < 2001) {
+            } else if ((Number(datacurrent[i].temperature)) > 1000 && Number(datacurrent[i].temperature) < 2001) {
                 color2 = "#FFB74D";
-            } else if ((Number(datacurrent[i].temp)) > 2000) {
+            } else if ((Number(datacurrent[i].temperature)) > 2000) {
                 color2 = "#FF8A65";
             }
 
-            // Set colour based on tvoc range
-            if((Number(datacurrent[i].temp)) < 0.51) {
+            // Set colour based on VolatileComponents range
+            if((Number(datacurrent[i].temperature)) < 0.51) {
                 color3 = "#81C784";
-            } else if ((Number(datacurrent[i].temp)) > 0.5 && Number(datacurrent[i].temp) < 5.01) {
+            } else if ((Number(datacurrent[i].temperature)) > 0.5 && Number(datacurrent[i].temperature) < 5.01) {
                 color3 = "#AED581";
-            } else if ((Number(datacurrent[i].temp)) > 5 && Number(datacurrent[i].temp) < 10.01) {
+            } else if ((Number(datacurrent[i].temperature)) > 5 && Number(datacurrent[i].temperature) < 10.01) {
                 color3 = "#FFB74D";
-            } else if ((Number(datacurrent[i].temp)) > 10) {
+            } else if ((Number(datacurrent[i].temperature)) > 10) {
                 color3 = "#FF8A65";
             }
 
             // Write the body of the table
             table += "<tbody><tr>";
             table += "<td>" + datacurrent[i].station + "</td>";
-            table += '<td bgcolor="' + color1 + '">' + datacurrent[i].temp + "</td>"
-            table += '<td bgcolor="' + color2 + '">' + datacurrent[i].co2 + "</td>";
-            table += '<td bgcolor="' + color3 + '">' + datacurrent[i].tvoc + "</td>";
+            table += '<td bgcolor="' + color1 + '">' + datacurrent[i].temperature + "</td>"
+            table += '<td bgcolor="' + color2 + '">' + datacurrent[i].CO2 + "</td>";
+            table += '<td bgcolor="' + color3 + '">' + datacurrent[i].VolatileComponents + "</td>";
             table += "</tr></tbody>";
         };
     };
     table += "</table>";
     //Output table
-    var output = document.getElementById('output')
-    output.innerHTML = table;
+    return table;
+    //var output = document.getElementById('output')
+    //output.innerHTML = table;
 };
 
-buildtable();
+//buildtable();
