@@ -1,5 +1,5 @@
 // TEST data 
-var datatest  = [ 
+var datatest  = [ /*
     {
         "line":"Circle",
         "number":"245",
@@ -39,7 +39,7 @@ var datatest  = [
         "temperature":"80",
         "CO2":"200",
         "VolatileComponents":"5.6"
-    }
+    } */
 ]
 
 //INSERT DATA HERE
@@ -73,7 +73,7 @@ setupWebpage(); //mqtt connection and storage setup are both done in parrellel
 //setup call for webpage
 async function setupWebpage(){
   //await setupStorage(); //add back in when storage functions defined
-  //datatest = await retrieveJSON(); // must always be in sync
+  datatest = await retrieveJSON(); // must always be in sync
   var table = buildtable();
   //Output table
   document.getElementById('output').innerHTML = table;
