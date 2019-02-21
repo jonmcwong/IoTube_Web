@@ -1,5 +1,5 @@
 // TEST data 
-var datatest = [
+var datatest  = [ 
     {
         "line":"circle",
         "number":"245",
@@ -28,17 +28,17 @@ var datatest = [
         "line":"Bakerloo",
         "number":"25657578689",
         "station":"Kensington",
-        "temp":"254",
-        "co2":"5",
-        "tvoc":"575465"
+        "temp":"8",
+        "co2":"300",
+        "tvoc":"0.2"
     },
     {
         "line":"Bakerloo",
         "number":"25657578689",
         "station":"Ton",
-        "temp":"254",
-        "co2":"5",
-        "tvoc":"575465"
+        "temp":"80",
+        "co2":"200",
+        "tvoc":"5.6"
     }
 ]
 
@@ -47,43 +47,125 @@ var data = [{"line":"Bakerloo","number":"243","station":"Paddington"},{"line":"B
 //var datacurrent = JSON.parse(data); -- use if stringyfied
 
 
+//Identify which line we are filtering
+var identify = document.getElementById('tag').textContent;
+
+
+//initialise mqtt client
+var client = new Paho.MQTT.Client(host, port, "/ws");
+//Set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+client.onMessageDelivered = onMessageDelivered;
+client.onConnected = onConnected;
+var connectOptions = {
+  timeout: 3,
+  reconnect: false
+};
+var isConnectedAndSubbed = false;
+console.log("connecting to "+ host +":"+ port + "...");
+client.connect(connectOptions); //connect       
+
+//setup the page
+setupWebpage(); //mqtt connection and storage setup are both done in parrellel
+
+
+
+
+
+//setup call for webpage
+async function setupWebpage(){
+  //await setupStorage(); //add back in when storage functions defined
+  //datatest = await retrieveJSON(); // must always be in sync
+  var table = buildtable();
+  //Output table
+  document.getElementById('output').innerHTML = table;
+  setInterval(refresh, 2000);
+}
+
+//refreshing the table
+async function refresh() {
+  document.getElementById('output').innerHTML = buildtable();
+  console.log("refresh");
+  //returns array of trains currently at stations
+  var request = requestLineArrivalInfo(identify.toLowerCase()); 
+  //request data from every single one of those trains that are at stations
+  request.then((trainsJSON) => {
+    trainsJSON.forEach(function(train) {
+      //sends requests to each stationed train on its unique device topic
+      requestFromDevice(train);
+    });
+  });
+}
+
+
 // Build HTML table
 function buildtable() {
-
-    //Identify which line we are filtering
-    var identify = document.getElementById('tag').textContent;
-
     // Save Data
     var datacurrent = datatest;
 
     // Create table
     var table = "";
+    var color1 = "";
+    var color2 = "";
+    var color3 = "";
 	table += '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">';
-    table += '<thead><tr><th><center>STATION</center></th><th><center>TEMPERATURE</center></th><th><center>C02</center></th><th><center>VTOC</center></th><th><center>CONDITION</center></th></tr></thead>'
+    table += '<thead><tr><th><center>STATION</center></th><th><center>TEMP</center></th><th><center>C02 (ppm)</center></th><th><center>VTOC (ppm)</center></th></tr></thead>'
 	for (i = datacurrent.length - 1; i >= 0; i--) {
-        console.log(datacurrent[i].line)
         if(datacurrent[i].line === identify) {
+
+            // Set colours based on temperature range
+            if((Number(datacurrent[i].temp)) < 11) {
+                color1 = "#4FC3F7";
+            } else if ((Number(datacurrent[i].temp)) > 10 && Number(datacurrent[i].temp) < 20) {
+                color1 = "#4DD0E1";
+            } else if ((Number(datacurrent[i].temp)) > 19 && Number(datacurrent[i].temp) < 26) {
+                color1 = "#81C784";
+            } else if ((Number(datacurrent[i].temp)) > 25 && Number(datacurrent[i].temp) < 30) {
+                color1 = "#FFB74D";
+            } else if ((Number(datacurrent[i].temp)) > 29) {
+                color1 = "#FF8A65";
+            }   
+        
+        
+        // Set colour based on c02 range
+            if((Number(datacurrent[i].temp)) < 351) {
+                color2 = "#81C784";
+            } else if ((Number(datacurrent[i].temp)) > 350 && Number(datacurrent[i].temp) < 601) {
+                color2 = "#AED581";
+            } else if ((Number(datacurrent[i].temp)) > 600 && Number(datacurrent[i].temp) < 1001) {
+                color2 = "#DCE775";
+            } else if ((Number(datacurrent[i].temp)) > 1000 && Number(datacurrent[i].temp) < 2001) {
+                color2 = "#FFB74D";
+            } else if ((Number(datacurrent[i].temp)) > 2000) {
+                color2 = "#FF8A65";
+            }
+
+
+        // Set colour based on tvoc range
+            if((Number(datacurrent[i].temp)) < 0.51) {
+                color3 = "#81C784";
+            } else if ((Number(datacurrent[i].temp)) > 0.5 && Number(datacurrent[i].temp) < 5.01) {
+                color3 = "#AED581";
+            } else if ((Number(datacurrent[i].temp)) > 5 && Number(datacurrent[i].temp) < 10.01) {
+                color3 = "#FFB74D";
+            } else if ((Number(datacurrent[i].temp)) > 10) {
+                color3 = "#FF8A65";
+            }
+        
+
+            // Write the body of the table
             table += "<tbody><tr>";
             table += "<td>" + datacurrent[i].station + "</td>";
-            table += '<td class="check">' + datacurrent[i].temp + "</td>"
-            table += "<td>" + datacurrent[i].co2 + "</td>";
-            table += "<td>" + datacurrent[i].tvoc + "</td>";
-            table += '<td class="heat">' + "</td>"
+            table += '<td bgcolor="' + color1 + '">' + datacurrent[i].temp + "</td>"
+            table += '<td bgcolor="' + color2 + '">' + datacurrent[i].co2 + "</td>";
+            table += '<td bgcolor="' + color3 + '">' + datacurrent[i].tvoc + "</td>";
             table += "</tr></tbody>";
-        }
-	}
+        };
+    };
     table += "</table>";
-
     //Output table
     var output = document.getElementById('output')
     output.innerHTML = table;
-}
+};
 buildtable();
-
-$(document).ready(function(){
-    $('#dataTable td.check').each(function(){
-        if ($(this).text() == '254') {
-            $('#dataTable td.heat').css('background-color','#f00');
-        }
-    });
-});
