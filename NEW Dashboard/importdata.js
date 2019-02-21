@@ -1,7 +1,7 @@
 // TEST data 
 var datatest  = [ 
     {
-        "line":"circle",
+        "line":"Circle",
         "number":"245",
         "station":"South ",
         "temp":"24",
@@ -9,7 +9,7 @@ var datatest  = [
         "tvoc":"575"
     },
     {
-        "line":"central",
+        "line":"Central",
         "number":"258677295",
         "station":"Soton",
         "temp":"254",
@@ -17,7 +17,7 @@ var datatest  = [
         "tvoc":"55e75"
     },
     {
-        "line":"circle",
+        "line":"Circle",
         "number":"245",
         "station":"South sington",
         "temp":"254",
@@ -70,9 +70,6 @@ client.connect(connectOptions); //connect
 setupWebpage(); //mqtt connection and storage setup are both done in parrellel
 
 
-
-
-
 //setup call for webpage
 async function setupWebpage(){
   //await setupStorage(); //add back in when storage functions defined
@@ -114,7 +111,7 @@ function buildtable() {
 	for (i = datacurrent.length - 1; i >= 0; i--) {
         if(datacurrent[i].line === identify) {
 
-            // Set colours based on temperature range
+        // Set colours based on temperature range
             if((Number(datacurrent[i].temp)) < 11) {
                 color1 = "#4FC3F7";
             } else if ((Number(datacurrent[i].temp)) > 10 && Number(datacurrent[i].temp) < 20) {
@@ -126,7 +123,6 @@ function buildtable() {
             } else if ((Number(datacurrent[i].temp)) > 29) {
                 color1 = "#FF8A65";
             }   
-        
         
         // Set colour based on c02 range
             if((Number(datacurrent[i].temp)) < 351) {
@@ -141,8 +137,7 @@ function buildtable() {
                 color2 = "#FF8A65";
             }
 
-
-        // Set colour based on tvoc range
+            // Set colour based on tvoc range
             if((Number(datacurrent[i].temp)) < 0.51) {
                 color3 = "#81C784";
             } else if ((Number(datacurrent[i].temp)) > 0.5 && Number(datacurrent[i].temp) < 5.01) {
@@ -152,7 +147,6 @@ function buildtable() {
             } else if ((Number(datacurrent[i].temp)) > 10) {
                 color3 = "#FF8A65";
             }
-        
 
             // Write the body of the table
             table += "<tbody><tr>";
@@ -168,4 +162,5 @@ function buildtable() {
     var output = document.getElementById('output')
     output.innerHTML = table;
 };
+
 buildtable();
