@@ -1,5 +1,5 @@
 // TEST data 
-var datatest = [
+var datatest  = [ 
     {
         "line":"circle",
         "number":"245",
@@ -47,12 +47,60 @@ var data = [{"line":"Bakerloo","number":"243","station":"Paddington"},{"line":"B
 //var datacurrent = JSON.parse(data); -- use if stringyfied
 
 
+//Identify which line we are filtering
+var identify = document.getElementById('tag').textContent;
+
+
+//initialise mqtt client
+var client = new Paho.MQTT.Client(host, port, "/ws");
+//Set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+client.onMessageDelivered = onMessageDelivered;
+client.onConnected = onConnected;
+var connectOptions = {
+  timeout: 3,
+  reconnect: false
+};
+var isConnectedAndSubbed = false;
+console.log("connecting to "+ host +":"+ port + "...");
+client.connect(connectOptions); //connect       
+
+//setup the page
+setupWebpage(); //mqtt connection and storage setup are both done in parrellel
+
+
+
+
+
+//setup call for webpage
+async function setupWebpage(){
+  //await setupStorage(); //add back in when storage functions defined
+  //datatest = await retrieveJSON(); // must always be in sync
+  var table = buildtable();
+  //Output table
+  document.getElementById('output').innerHTML = table;
+  setInterval(refresh, 2000);
+}
+
+//refreshing the table
+async function refresh() {
+  document.getElementById('output').innerHTML = buildtable();
+  console.log("refresh");
+  //returns array of trains currently at stations
+  var request = requestLineArrivalInfo(identify.toLowerCase()); 
+  //request data from every single one of those trains that are at stations
+  request.then((trainsJSON) => {
+    trainsJSON.forEach(function(train) {
+      //sends requests to each stationed train on its unique device topic
+      requestFromDevice(train);
+    });
+  });
+}
+
+
 // Build HTML table
 function buildtable() {
-
-    //Identify which line we are filtering
-    var identify = document.getElementById('tag').textContent;
-
     // Save Data
     var datacurrent = datatest;
 
