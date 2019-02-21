@@ -1,6 +1,6 @@
 // TEST data 
 
-var data  = []
+var data  = [];
 
 //Identify which line we are filtering
 var identify = document.getElementById('tag').textContent;
